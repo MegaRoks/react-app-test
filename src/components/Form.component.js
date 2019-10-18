@@ -1,17 +1,34 @@
 import React, { useState, useContext } from 'react';
 import { Alert } from './Alert.component';
 import { AlertContext } from './../context/alert.context';
+import { TokenContext } from './../context/token.context';
 
 export const Form = () => {
-    const [file, setFile] = useState('');
     const [data, setData] = useState('');
-    const [error, setError] = useState(false);
+    const [error, setError] = useState('');
 
-    console.log(file);
+    const { userToken } = useContext(TokenContext);
 
-    const submitForm = async event => {
-        event.preventDefault();
+    const fileUploader = async file => {
         console.log(file);
+        const url = 'http://localhost:8081/file/add/';
+        const body = new FormData();
+        body.append('file', file);
+        const headers = {
+            token: userToken,
+        };
+        const method = 'POST';
+        const res = await fetch(url, {
+            headers,
+            method,
+            body,
+        });
+        console.log(headers);
+        const data = await res.json();
+        data.err ? setError(true) : setError(false);
+        setData(data);
+
+        console.log(data);
     };
 
     return (
@@ -37,8 +54,7 @@ export const Form = () => {
                             name="file"
                             className="custom-file-input"
                             id="inputFile"
-                            value={file}
-                            onChange={event => setFile(event.target.value)}
+                            onChange={event => fileUploader(event.target.files[0])}
                         />
                         <label className="custom-file-label">Выберите файл</label>
                     </div>
