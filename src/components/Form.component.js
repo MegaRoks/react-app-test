@@ -1,25 +1,16 @@
-import React, { useState, useContext } from 'react';
-import { AlertContext } from '../context/alert/alertContext';
+import React from 'react';
 
 export const Form = () => {
-    const [value, setValue] = useState('');
-    const alert = useContext(AlertContext);
-
-    const submitHandler = event => {
-        event.preventDefault();
-
-        alert.show(value, 'success');
-    };
     return (
-        <form onSubmit={submitHandler}>
-            <div className="form-group">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Введите название заметки"
-                    value={value}
-                    onChange={e => setValue(e.target.value)}
-                />
+        <form>
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                    <span className="input-group-text">Загрузить</span>
+                </div>
+                <div className="custom-file">
+                    <input type="file" className="custom-file-input" />
+                    <label className="custom-file-label">Выберите файл</label>
+                </div>
             </div>
         </form>
     );

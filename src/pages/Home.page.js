@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react';
+
 import { Form } from './../components/Form.component';
-import { Notes } from './../components/Notes.component';
- 
+
 export const Home = () => {
-    const notes = new Array(3).fill('').map((_, i) => ({ id: i, title: `Note ${i + 1}` }));
-    
     return (
         <Fragment>
-            <Form />
-
+            <h3>Загрузка файлов</h3>
             <hr />
-
-            <Notes notes={notes} />
+            <Form />
         </Fragment>
     );
 };
