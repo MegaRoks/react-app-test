@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Context } from './../Context';
+import { Context } from './../context/context';
 
 export const Alert = () => {
     const { data, setError } = useContext(Context);

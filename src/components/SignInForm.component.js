@@ -1,7 +1,8 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Alert } from './Alert.component';
-import { Context } from './../Context';
+import { Context } from './../context/context';
+import { TokenContext } from './../context/token.context';
 
 export const SignInForm = () => {
     const [userEmail, setUserEmail] = useState('');
@@ -9,6 +10,8 @@ export const SignInForm = () => {
     const [data, setData] = useState('');
     const [error, setError] = useState(false);
     const [direct, setRedirect] = useState(false);
+
+    const { setUserToken } = useContext(TokenContext);
 
     const submitForm = async event => {
         event.preventDefault();
@@ -29,8 +32,7 @@ export const SignInForm = () => {
         const data = await res.json();
         setData(data);
         data.err ? setError(true) : setRedirect(true);
-
-        console.log(data);
+        data.token ? setUserToken(data.token) : setUserToken('');
     };
 
     return (
@@ -40,49 +42,47 @@ export const SignInForm = () => {
                 setError,
             }}
         >
-            <Fragment>
-                <form>
-                    <h3>Войдти на сайт</h3>
-                    <hr />
+            <form>
+                <h3>Войдти на сайт</h3>
+                <hr />
 
-                    {error === true ? <Alert /> : null}
-                    {direct === true ? <Redirect to="/" /> : null}
+                {error === true ? <Alert /> : null}
+                {direct === true ? <Redirect to="/" /> : null}
 
-                    <div className="form-group">
-                        <label htmlFor="inputEmail">Электронная почта</label>
-                        <input
-                            type="email"
-                            name="email"
-                            className="form-control"
-                            id="inputEmail"
-                            placeholder="Введите электронную почту"
-                            value={userEmail}
-                            onChange={event => setUserEmail(event.target.value)}
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="inputPassword">Пароль</label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            id="inputPassword"
-                            placeholder="Введите пароль"
-                            value={userPassword}
-                            onChange={event => setUserPassword(event.target.value)}
-                        />
-                    </div>
-
-                    <button type="submit" className="btn btn-primary" onClick={submitForm}>
-                        Войдти
-                    </button>
-                </form>
-
-                <div className="pt-4">
-                    <Link to="/signup">У вас нет аккаунта?</Link>
+                <div className="form-group">
+                    <label htmlFor="inputEmail">Электронная почта</label>
+                    <input
+                        type="email"
+                        name="email"
+                        className="form-control"
+                        id="inputEmail"
+                        placeholder="Введите электронную почту"
+                        value={userEmail}
+                        onChange={event => setUserEmail(event.target.value)}
+                    />
                 </div>
-            </Fragment>
+
+                <div className="form-group">
+                    <label htmlFor="inputPassword">Пароль</label>
+                    <input
+                        type="password"
+                        name="password"
+                        className="form-control"
+                        id="inputPassword"
+                        placeholder="Введите пароль"
+                        value={userPassword}
+                        onChange={event => setUserPassword(event.target.value)}
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-primary" onClick={submitForm}>
+                    Войдти
+                </button>
+            </form>
+
+            <div className="pt-4">
+                <Link to="/signup">У вас нет аккаунта?</Link>
+            </div>
         </Context.Provider>
     );
 };
