@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Context } from './../Context';
 
-export const Alert = ({ err }) => {
+export const Alert = () => {
+    const { data, setError } = useContext(Context);
+
     return (
         <div className="alert alert-warning alert-dismissible fade show">
-            <strong>Error!</strong>
-            {err}.
-            <button type="button" className="close">
+            <strong>Error!&nbsp;</strong>
+            {data.err}
+            <button type="button" className="close" onClick={() => setError(false)}>
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
