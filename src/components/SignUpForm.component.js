@@ -95,7 +95,7 @@ export const SignUpForm = () => {
                             className="form-control"
                             name="inputPassword"
                             placeholder="Введите пароль"
-                            value={userRassword}
+                            value={userPassword}
                             onChange={event => setUserPassword(event.target.value)}
                         />
                     </div>
