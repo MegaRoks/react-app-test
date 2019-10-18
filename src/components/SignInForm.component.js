@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Alert } from './Alert.component';
-import { Context } from './../context/context';
+import { AlertContext } from '../context/alert.context';
 import { TokenContext } from './../context/token.context';
 
 export const SignInForm = () => {
@@ -36,7 +36,7 @@ export const SignInForm = () => {
     };
 
     return (
-        <Context.Provider
+        <AlertContext.Provider
             value={{
                 data,
                 setError,
@@ -83,6 +83,6 @@ export const SignInForm = () => {
             <div className="pt-4">
                 <Link to="/signup">У вас нет аккаунта?</Link>
             </div>
-        </Context.Provider>
+        </AlertContext.Provider>
     );
 };

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { Context } from './../context/context';
+import { AlertContext } from './../context/alert.context';
 
 export const Alert = () => {
-    const { data, setError } = useContext(Context);
+    const { data, setError } = useContext(AlertContext);
 
     return (
         <div className="alert alert-warning alert-dismissible fade show">
