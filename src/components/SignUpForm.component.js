@@ -6,8 +6,8 @@ import { Context } from './../Context';
 export const SignUpForm = () => {
     const [firstName, serFirstname] = useState('');
     const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
     const [data, setData] = useState('');
     const [error, setError] = useState(false);
     const [direct, setRedirect] = useState(false);
@@ -15,10 +15,10 @@ export const SignUpForm = () => {
     const submitForm = async event => {
         event.preventDefault();
         const body = JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            userEmail: email,
-            userPassword: password,
+            firstName,
+            lastName,
+            userEmail,
+            userPassword,
         });
         const url = 'http://localhost:8081/api/users/signup/';
         const headers = {
@@ -83,8 +83,8 @@ export const SignUpForm = () => {
                             className="form-control"
                             name="inputEmail"
                             placeholder="Введите электронную почту"
-                            value={email}
-                            onChange={event => setEmail(event.target.value)}
+                            value={userEmail}
+                            onChange={event => setUserEmail(event.target.value)}
                         />
                     </div>
 
@@ -95,8 +95,8 @@ export const SignUpForm = () => {
                             className="form-control"
                             name="inputPassword"
                             placeholder="Введите пароль"
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
+                            value={userRassword}
+                            onChange={event => setUserPassword(event.target.value)}
                         />
                     </div>
 

@@ -4,8 +4,8 @@ import { Alert } from './Alert.component';
 import { Context } from './../Context';
 
 export const SignInForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
     const [data, setData] = useState('');
     const [error, setError] = useState(false);
     const [direct, setRedirect] = useState(false);
@@ -13,8 +13,8 @@ export const SignInForm = () => {
     const submitForm = async event => {
         event.preventDefault();
         const body = JSON.stringify({
-            userEmail: email,
-            userPassword: password,
+            userEmail,
+            userPassword,
         });
         const url = 'http://localhost:8081/api/users/signin/';
         const headers = {
@@ -56,8 +56,8 @@ export const SignInForm = () => {
                             className="form-control"
                             id="inputEmail"
                             placeholder="Введите электронную почту"
-                            value={email}
-                            onChange={event => setEmail(event.target.value)}
+                            value={userEmail}
+                            onChange={event => setUserEmail(event.target.value)}
                         />
                     </div>
 
@@ -69,8 +69,8 @@ export const SignInForm = () => {
                             className="form-control"
                             id="inputPassword"
                             placeholder="Введите пароль"
-                            value={password}
-                            onChange={event => setPassword(event.target.value)}
+                            value={userPassword}
+                            onChange={event => setUserPassword(event.target.value)}
                         />
                     </div>
 
