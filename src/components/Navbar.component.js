@@ -16,12 +16,12 @@ export const Navbar = () => (
                 </NavLink>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" to="/singin">
+                <NavLink className="nav-link" to="/signin">
                     Войти
                 </NavLink>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" to="/singup">
+                <NavLink className="nav-link" to="/signup">
                     Регистрация
                 </NavLink>
             </li>

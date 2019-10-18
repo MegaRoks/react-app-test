@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Home } from './pages/Home.page';
 import { Files } from './pages/Files.page';
-import { SingIn } from './pages/SingIn.page';
-import { SingUp } from './pages/SingUp.page';
+import { SignIn } from './pages/SignIn.page';
+import { SignUp } from './pages/SignUp.page';
 import { Navbar } from './components/Navbar.component';
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Home}></Route>
                     <Route path="/files" component={Files}></Route>
-                    <Route path="/singin" component={SingIn}></Route>
-                    <Route path="/singup" component={SingUp}></Route>
+                    <Route path="/signin" component={SignIn}></Route>
+                    <Route path="/signup" component={SignUp}></Route>
                 </Switch>
             </div>
         </BrowserRouter>
