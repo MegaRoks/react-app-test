@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Items } from './../components/Items.companent';
+import { Items } from './../components/Items.component';
 
 export const Files = () => {
     return (

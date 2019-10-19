@@ -3,6 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import { Alert } from './Alert.component';
 import { AlertContext } from '../context/alert.context';
 import { TokenContext } from './../context/token.context';
+import { Api } from './../api';
+import { Endpoints } from '../endpoints';
 
 export const SignInForm = () => {
     const [userEmail, setUserEmail] = useState('');
@@ -19,17 +21,11 @@ export const SignInForm = () => {
             userEmail,
             userPassword,
         });
-        const url = 'http://localhost:8081/api/users/signin/';
-        const headers = {
-            'content-type': 'application/json',
-        };
-        const method = 'POST';
-        const res = await fetch(url, {
-            method,
-            body,
-            headers,
-        });
-        const data = await res.json();
+        const router = `api/users/signin/`;
+        const endpoints = new Endpoints(router);
+        const url = endpoints.getUrl();
+        const api = new Api(url, body);
+        const data = (await api.post()).json();
         setData(data);
         data.err ? setError(true) : setRedirect(true);
         data.token ? setUserToken(data.token) : setUserToken('');
