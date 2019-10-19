@@ -7,12 +7,13 @@ export const Item = ({ code }) => {
     const [item, setItem] = useState([]);
     const [urlCode, setUrlCode] = useState('');
     const [fileName, setFileName] = useState('');
+    const [error, setError] = useState(false);
 
     const { setShowLaoder } = useContext(LoaderContext);
 
     useEffect(() => {
         getItem(code);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const downloadFile = async event => {
@@ -30,29 +31,37 @@ export const Item = ({ code }) => {
         const url = endpoints.getUrl();
         const api = new Api(url);
         const item = (await api.get()).json();
+        item.err ? setError(true) : setItem(item);
         setUrlCode(item.url_code);
         setFileName(item.file_name);
-        setItem(item);
         setShowLaoder(false);
     }
 
     return (
         <div className="card">
-            <h5 className="card-header">
-                <span>Оригинальное имя файла:&nbsp;</span>
-                <span>{item.file_name}</span>
-            </h5>
+            {error === true ? (
+                <div>
+                    <strong className="justify-content-center">Такого файла не суцествует</strong>
+                </div>
+            ) : (
+                <div>
+                    <h5 className="card-header">
+                        <span>Оригинальное имя файла:&nbsp;</span>
+                        <span>{item.file_name}</span>
+                    </h5>
 
-            <div className="card-body">
-                <h5 className="card-title">
-                    <span>Время загрузки файла:&nbsp;</span>
-                    <span>{item.cteate_date}</span>
-                </h5>
+                    <div className="card-body">
+                        <h5 className="card-title">
+                            <span>Время загрузки файла:&nbsp;</span>
+                            <span>{item.cteate_date}</span>
+                        </h5>
 
-                <button type="button" className="btn btn-outline-primary" onClick={downloadFile}>
-                    Скачать
-                </button>
-            </div>
+                        <button type="button" className="btn btn-outline-primary" onClick={downloadFile}>
+                            Скачать
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
