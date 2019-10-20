@@ -5,30 +5,23 @@ import { Files } from './pages/Files.page';
 import { SignIn } from './pages/SignIn.page';
 import { SignUp } from './pages/SignUp.page';
 import { Navbar } from './components/Navbar.component';
-import { TokenContext } from './context/token.context';
 import { File } from './pages/File.page';
+import { AuthedContext } from './context/authed.context';
 
 function App() {
-    const [userToken, setUserToken] = useState('');
+    const [authed, setAuthed] = useState();
 
     useEffect(() => {
-        const token = localStorage.getItem('userToken') || '';
-        setUserToken(token);
-    }, [userToken])
+        const authed = localStorage.getItem('authed') || false;
+        setAuthed(authed);
+    }, []);
 
     useEffect(() => {
-        localStorage.setItem('userToken', userToken)
-    }, [userToken]);
-
-    console.log(userToken);
+        localStorage.setItem('authed', authed);
+    }, [authed]);
 
     return (
-        <TokenContext.Provider
-            value={{
-                userToken,
-                setUserToken,
-            }}
-        >
+        <AuthedContext.Provider value={{ authed, setAuthed }}>
             <BrowserRouter>
                 <Navbar />
                 <div className="container pt-4">
@@ -41,7 +34,7 @@ function App() {
                     </Switch>
                 </div>
             </BrowserRouter>
-        </TokenContext.Provider>
+        </AuthedContext.Provider>
     );
 }
 

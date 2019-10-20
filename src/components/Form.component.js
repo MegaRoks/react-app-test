@@ -7,8 +7,6 @@ export const Form = () => {
     const [data, setData] = useState('');
     const [error, setError] = useState(false);
 
-    console.log(file);
-
     const submitForm = async event => {
         event.preventDefault();
         console.log(file);

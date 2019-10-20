@@ -1,7 +1,8 @@
 export class Api {
-    constructor(url, body) {
+    constructor(url, body, token) {
         this.url = url;
         this.body = body;
+        this.token = token;
     }
 
     async get() {
@@ -9,9 +10,10 @@ export class Api {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',
+                token: this.token,
             },
         });
-        return res;
+        return res.json();
     }
 
     async post() {
@@ -19,10 +21,11 @@ export class Api {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
+                token: this.token,
             },
             body: this.body,
         });
-        return res;
+        return res.json();
     }
 
     async delete() {
@@ -30,9 +33,10 @@ export class Api {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',
+                token: this.token,
             },
             body: this.body,
         });
-        return res;
+        return res.json();
     }
 }

@@ -1,41 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Api } from './../api';
+import React, { useContext } from 'react';
 import { Endpoints } from '../endpoints';
-import { LoaderContext } from './../context/loader.context';
+import { ErrorContext } from '../context/error.context';
+import { Link } from 'react-router-dom';
 
 export const Item = ({ code }) => {
-    const [item, setItem] = useState([]);
-    const [urlCode, setUrlCode] = useState('');
-    const [fileName, setFileName] = useState('');
-    const [error, setError] = useState(false);
+    const { item, error } = useContext(ErrorContext);
 
-    const { setShowLaoder } = useContext(LoaderContext);
-
-    useEffect(() => {
-        getItem(code);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const downloadFile = async event => {
-        event.preventDefault();
-        const router = `file/${urlCode}/${fileName}/`;
-        const endpoints = new Endpoints(router);
-        const url = endpoints.getUrl();
-        const api = new Api(url);
-        await api.get();
-    };
-
-    async function getItem(code) {
-        const router = `${code}/`;
-        const endpoints = new Endpoints(router);
-        const url = endpoints.getUrl();
-        const api = new Api(url);
-        const item = (await api.get()).json();
-        item.err ? setError(true) : setItem(item);
-        setUrlCode(item.url_code);
-        setFileName(item.file_name);
-        setShowLaoder(false);
-    }
+    const router = `file/download/${code}/`;
+    const endpoints = new Endpoints(router);
+    const url = endpoints.getUrl();
 
     return (
         <div className="card">
@@ -53,12 +26,11 @@ export const Item = ({ code }) => {
                     <div className="card-body">
                         <h5 className="card-title">
                             <span>Время загрузки файла:&nbsp;</span>
-                            <span>{item.cteate_date}</span>
+                            <span>{item.create_date}</span>
                         </h5>
-
-                        <button type="button" className="btn btn-outline-primary" onClick={downloadFile}>
+                        <Link className="btn btn-outline-primary" to={{ pathname: url }} target="_blank" download>
                             Скачать
-                        </button>
+                        </Link>
                     </div>
                 </div>
             )}

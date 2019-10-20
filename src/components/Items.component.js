@@ -1,27 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Api } from './../api';
 import { Endpoints } from '../endpoints';
-import { LoaderContext } from './../context/loader.context';
+import { ItemsContext } from '../context/items.context';
 
 export const Items = () => {
-    const [items, setItems] = useState([]);
-
-    const { setShowLaoder } = useContext(LoaderContext);
-
-    useEffect(() => {
-        getItems();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    async function getItems() {
-        const router = `files/list/`;
-        const endpoints = new Endpoints(router);
-        const url = endpoints.getUrl();
-        const api = new Api(url);
-        const items = (await api.get()).json();
-        setItems(items.filesList);
-        setShowLaoder(false);
-    }
+    const { items, setItems } = useContext(ItemsContext);
+    const endpoints = new Endpoints();
+    const url = endpoints.getUrl();
 
     const deteleFile = async fileId => {
         const router = `file/delete/`;
@@ -30,8 +15,14 @@ export const Items = () => {
         });
         const endpoints = new Endpoints(router);
         const url = endpoints.getUrl();
-        const api = new Api(url, body);
+        const token = localStorage.getItem('userToken');
+        const api = new Api(url, body, token);
         await api.delete();
+        setItems(
+            items.filter(item => {
+                return item.file_id !== fileId;
+            }),
+        );
     };
 
     return (
@@ -45,12 +36,15 @@ export const Items = () => {
                     <li className="list-group-item item" key={item.file_id}>
                         <div>
                             <strong>{item.file_name}</strong>
+                            <strong>
+                                {url}file/download/{item.url_code}
+                            </strong>
                             <small>{item.create_date}</small>
                         </div>
                         <button
                             type="button"
                             className="btn btn-outline-primary btn-sm"
-                            onClick={() => deteleFile(item.fileId)}
+                            onClick={() => deteleFile(item.file_id)}
                         >
                             &times;
                         </button>

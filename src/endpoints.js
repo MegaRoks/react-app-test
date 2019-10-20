@@ -1,7 +1,7 @@
 export class Endpoints {
-    constructor(param) {
+    constructor(param = '') {
         this.param = param;
-        this.baseUrl = 'http://localhost:8081';
+        this.baseUrl = 'https://node-app-test-1.herokuapp.com';
     }
 
     getUrl() {
