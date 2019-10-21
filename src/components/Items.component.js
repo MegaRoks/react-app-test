@@ -6,7 +6,7 @@ import { ItemsContext } from '../context/items.context';
 export const Items = () => {
     const { items, setItems } = useContext(ItemsContext);
     const endpoints = new Endpoints();
-    const url = endpoints.getUrl();
+    const urlOfFiles = endpoints.getUrlOfFiles();
 
     const deteleFile = async fileId => {
         const router = `file/delete/`;
@@ -37,7 +37,7 @@ export const Items = () => {
                         <div>
                             <strong>{item.file_name}</strong>
                             <strong>
-                                {url}
+                                {urlOfFiles}
                                 {item.url_code}
                             </strong>
                             <strong>{item.count_downloads}</strong>
