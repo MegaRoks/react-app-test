@@ -26,6 +26,7 @@ export const SignInForm = () => {
         const url = endpoints.getUrl();
         const api = new Api(url, body);
         const data = await api.post();
+        setData(data);
         if (data.token) {
             setAuthed(true);
             setRedirect(true);
@@ -33,7 +34,6 @@ export const SignInForm = () => {
         } else {
             setError(true);
         }
-        setData(data);
     };
 
     return (
