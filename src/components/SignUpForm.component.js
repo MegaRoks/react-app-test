@@ -67,12 +67,12 @@ export const SignUpForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inputLastName">Фамилие пользователя</label>
+                    <label htmlFor="inputLastName">Фамилия пользователя</label>
                     <input
                         type="text"
                         className="form-control"
                         name="inputLastName"
-                        placeholder="введите фамилие"
+                        placeholder="введите фамилия"
                         value={lastName}
                         onChange={event => setLastName(event.target.value)}
                     />
