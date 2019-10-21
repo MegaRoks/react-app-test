@@ -39,4 +39,15 @@ export class Api {
         });
         return res.json();
     }
+
+    async upload() {
+        const res = await fetch(this.url, {
+            method: 'POST',
+            headers: {
+                token: this.token,
+            },
+            body: this.body,
+        });
+        return res.json();
+    }
 }

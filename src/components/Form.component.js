@@ -1,34 +1,31 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Alert } from './Alert.component';
 import { AlertContext } from './../context/alert.context';
-import { TokenContext } from './../context/token.context';
+import { Api } from './../api';
+import { Endpoints } from '../endpoints';
+import { Info } from './Info.component';
 
 export const Form = () => {
     const [data, setData] = useState('');
-    const [error, setError] = useState('');
-
-    const { userToken } = useContext(TokenContext);
+    const [error, setError] = useState(false);
+    const [info, setInfo] = useState(false);
 
     const fileUploader = async file => {
-        console.log(file);
-        const url = 'http://localhost:8081/file/add/';
-        const body = new FormData();
-        body.append('file', file);
-        const headers = {
-            token: userToken,
-        };
-        const method = 'POST';
-        const res = await fetch(url, {
-            headers,
-            method,
-            body,
-        });
-        console.log(headers);
-        const data = await res.json();
-        data.err ? setError(true) : setError(false);
+        const router = `file/add/`;
+        const endpoints = new Endpoints(router);
+        const url = endpoints.getUrl();
+        const formData = new FormData();
+        const userToken = localStorage.getItem('userToken');
+        formData.append('file', file);
+        const api = new Api(url, formData, userToken);
+        const data = await api.upload();
+        if (data.err) {
+            setError(true);
+        } else {
+            setError(false);
+            setInfo(true);
+        }
         setData(data);
-
-        console.log(data);
     };
 
     return (
@@ -43,6 +40,7 @@ export const Form = () => {
                 <hr />
 
                 {error === true ? <Alert /> : null}
+                {info === true ? <Info data={data} /> : null}
 
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">

@@ -31,13 +31,13 @@ export const SignUpForm = () => {
         const api = new Api(url, body);
         const data = await api.post();
         if (data.token) {
-            setData(data);
             setAuthed(true);
             setRedirect(true);
+            localStorage.setItem('userToken', data.token);
         } else {
             setError(true);
         }
-        localStorage.setItem('userToken', data.token);
+        setData(data);
     };
 
     return (

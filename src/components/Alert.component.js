@@ -4,6 +4,8 @@ import { AlertContext } from './../context/alert.context';
 export const Alert = () => {
     const { data, setError } = useContext(AlertContext);
 
+    console.log(data);
+
     return (
         <div className="alert alert-warning alert-dismissible fade show">
             <strong>Error!&nbsp;</strong>

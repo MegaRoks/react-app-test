@@ -37,8 +37,10 @@ export const Items = () => {
                         <div>
                             <strong>{item.file_name}</strong>
                             <strong>
-                                {url}file/download/{item.url_code}
+                                {url}
+                                {item.url_code}
                             </strong>
+                            <strong>{item.count_downloads}</strong>
                             <small>{item.create_date}</small>
                         </div>
                         <button
