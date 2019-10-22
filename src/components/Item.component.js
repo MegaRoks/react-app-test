@@ -26,7 +26,7 @@ export const Item = ({ code }) => {
                     <div className="card-body">
                         <h5 className="card-title">
                             <span>Время загрузки файла:&nbsp;</span>
-                            <span>{item.create_date}</span>
+                            <span>{item.createdAt}</span>
                         </h5>
                         <Link className="btn btn-outline-primary" to={{ pathname: url }} target="_blank" download>
                             Скачать

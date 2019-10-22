@@ -41,7 +41,7 @@ export const Items = () => {
                                 {item.url_code}
                             </strong>
                             <strong>{item.count_downloads}</strong>
-                            <small>{item.create_date}</small>
+                            <small>{item.createdAt}</small>
                         </div>
                         <button
                             type="button"
